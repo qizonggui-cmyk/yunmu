@@ -66,12 +66,6 @@
       :imgSize="{ width: '330px', height: '155px' }"
       ref="verify"
     ></Verify>
-    <div class="footer">
-      <div class="pull-right" v-if="copyright">{{ copyright }}</div>
-      <div class="pull-right" v-else>
-        Copyright © 2014-2025 <a href="https://www.crmeb.com" target="_blank">{{ version }}</a>
-      </div>
-    </div>
   </div>
 </template>
 <script>
