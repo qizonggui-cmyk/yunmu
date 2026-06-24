@@ -47,7 +47,7 @@
       @changeBarg="changeBarg"
       @goDetail="goDetail"
     ></PageDesign>
-    <image :src="copyRightPic" alt="" class="support"></image>
+    <image v-if="false" :src="copyRightPic" alt="" class="support"></image>
     <editUserModal
       :isShow="editModal"
       @closeEdit="closeEdit"
@@ -633,10 +633,7 @@ export default {
     }
   }
   .support {
-    width: 219rpx;
-    height: 74rpx;
-    margin: 54rpx auto;
-    display: block;
+    display: none !important;
   }
 }
 .ysize {
