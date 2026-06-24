@@ -396,13 +396,26 @@ page {
   height: 100vh;
 }
 
-/* 隐藏小程序个人中心底部版权图片 */
-.new-users .support {
+/* 隐藏 H5/小程序个人中心底部版权图片 */
+.new-users .support,
+.new-users .support *,
+uni-image.support,
+uni-image.support *,
+image.support,
+image.support *,
+.support,
+.support * {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
   width: 0 !important;
   height: 0 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: 0 !important;
+  max-height: 0 !important;
   margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
 }
 </style>
