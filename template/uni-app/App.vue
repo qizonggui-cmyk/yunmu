@@ -395,4 +395,14 @@ page {
   width: 100%;
   height: 100vh;
 }
+
+/* 隐藏小程序个人中心底部版权图片 */
+.new-users .support {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+}
 </style>
