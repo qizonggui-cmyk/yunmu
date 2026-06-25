@@ -224,6 +224,15 @@
                   <el-option value="add_time" label="首次访问"></el-option>
                 </el-select>
               </el-form-item>
+			  <el-form-item label="IP异常：">
+			    <el-select v-model="userFrom.ip_risk" placeholder="请选择IP异常状态" clearable class="form_content_width">
+			      <el-option value="" label="全部"></el-option>
+			      <el-option value="normal" label="正常"></el-option>
+			      <el-option value="orange" label="橙色预警（2-4个用户）"></el-option>
+			      <el-option value="red" label="红色预警（5-9个用户）"></el-option>
+			      <el-option value="blue" label="蓝色预警（10个及以上用户）"></el-option>
+			    </el-select>
+			  </el-form-item>
               <el-form-item label="访问时间：" label-for="user_time" v-if="user_time_type">
                 <el-date-picker
                   clearable
@@ -369,10 +378,29 @@
           </template>
         </el-table-column>
         <el-table-column label="手机号" min-width="100">
-          <template slot-scope="scope">
-            <div>{{ scope.row.phone }}</div>
-          </template>
+                  <template slot-scope="scope">
+                    <div>{{ scope.row.phone }}</div>
+                  </template>
         </el-table-column>
+		<el-table-column label="注册IP" min-width="130">
+		  <template slot-scope="scope">
+		    <div>{{ scope.row.register_ip || '-' }}</div>
+		  </template>
+		</el-table-column>
+		
+		<el-table-column label="登录IP" min-width="130">
+		  <template slot-scope="scope">
+		    <div>{{ scope.row.login_ip || '-' }}</div>
+		  </template>
+		</el-table-column>
+		
+		<el-table-column label="IP异常" min-width="130">
+		  <template slot-scope="scope">
+		    <el-tag size="mini" :type="ipRiskTagType(scope.row.ip_risk_level)">
+		      {{ ipRiskText(scope.row) }}
+		    </el-tag>
+		  </template>
+		</el-table-column>
         <el-table-column label="用户类型" min-width="100">
           <template slot-scope="scope">
             <div>{{ scope.row.user_type }}</div>
@@ -637,6 +665,7 @@ export default {
         level: '',
         group_id: '',
         agent_level: '',
+        ip_risk: '',
         field_key: '',
       },
       before_pay_time: '',
@@ -679,6 +708,25 @@ export default {
     // this.groupLists();
   },
   methods: {
+	    ipRiskTagType(level) {
+	      const map = {
+	        green: 'success',
+	        orange: 'warning',
+	        red: 'danger',
+	        blue: '',
+	      };
+	      return map[level] || 'success';
+	    },
+	    ipRiskText(row) {
+	      const count = Number(row.ip_risk_count || 0);
+	      const map = {
+	        green: '正常',
+	        orange: `橙色 ${count}人`,
+	        red: `红色 ${count}人`,
+	        blue: `蓝色 ${count}人`,
+	      };
+	      return map[row.ip_risk_level] || '正常';
+	    },
     getCityList() {
       cityList().then((res) => {
         this.addresData = res.data;
@@ -1169,6 +1217,7 @@ export default {
         level: '',
         group_id: '',
         agent_level: '',
+        ip_risk: '',
         field_key: '',
         page: 1, // 当前页
         limit: 20, // 每页显示条数
