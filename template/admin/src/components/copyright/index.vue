@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div class="i-copyright">
+    2026-2028 云牧臻和
+  </div>
 </template>
 
 <script>
@@ -10,6 +12,10 @@ export default {
 
 <style lang="scss">
 .i-copyright {
-  display: none !important;
+  display: block;
+  text-align: center;
+  color: #999;
+  padding: 10px 0;
+  font-size: 12px;
 }
 </style>
