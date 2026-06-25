@@ -16,7 +16,7 @@
     padding: 0 26px 0 8px;
     margin-right: 26px;
     &.on{
-      color: #E93323;
+      color: #200e32;
       font-size: 18px;
       &:after{
         content: '';
@@ -25,7 +25,7 @@
         bottom: -21px;
         width: 100%;
         height: 2px;
-        background: #E93323;
+        background: #200e32;
       }
     }
   }
@@ -41,4 +41,191 @@
   img{
     display: inline-block;
   }
+}
+
+$ym-top: #0f2f28;
+$ym-primary: #200e32;
+$ym-price: #c8a35b;
+$ym-tag: #3e6b4d;
+$ym-bg: #f7f1e7;
+$ym-surface: #fffaf2;
+$ym-border: #e6dccd;
+$ym-text: #241f1a;
+
+:root {
+  --ym-top: #{$ym-top};
+  --ym-primary: #{$ym-primary};
+  --ym-price: #{$ym-price};
+  --ym-tag: #{$ym-tag};
+  --ym-bg: #{$ym-bg};
+  --ym-surface: #{$ym-surface};
+  --ym-border: #{$ym-border};
+  --ym-text: #{$ym-text};
+}
+
+body,
+#__nuxt,
+#__layout {
+  background: var(--ym-bg) !important;
+  color: var(--ym-text);
+}
+
+.header.min_wrapper_1200 {
+  background-color: var(--ym-top) !important;
+  color: rgba(255, 250, 242, 0.78) !important;
+}
+
+.header.min_wrapper_1200 a,
+.header.min_wrapper_1200 .user,
+.header.min_wrapper_1200 .user .item,
+.header.min_wrapper_1200 .cartNum {
+  color: rgba(255, 250, 242, 0.78) !important;
+}
+
+.header.min_wrapper_1200 a:hover,
+.header.min_wrapper_1200 .user .item:hover {
+  color: #fffaf2 !important;
+}
+
+.header.min_wrapper_1200 .cartNum {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 250, 242, 0.12);
+}
+
+.header.min_wrapper_1200 .cartNum.on {
+  background: var(--ym-primary) !important;
+  color: var(--ym-price) !important;
+  opacity: 1 !important;
+}
+
+.nav {
+  background: var(--ym-surface) !important;
+  border-bottom: 1px solid var(--ym-border);
+  box-shadow: 0 8px 24px rgba(15, 47, 40, 0.06);
+}
+
+.nav .navCon .list .item {
+  color: #243b32 !important;
+}
+
+.nav .navCon .list .item:hover,
+.nav .navCon .list .item.font-color {
+  color: var(--ym-tag) !important;
+}
+
+.nav .search {
+  border-color: var(--ym-primary) !important;
+  background: #fffdf8 !important;
+}
+
+.nav .search .bnt,
+.nav .search .btn,
+.nav .search button {
+  background: var(--ym-primary) !important;
+  color: #fffaf2 !important;
+}
+
+.font-color,
+.price,
+.goods-price,
+.product-price,
+.pay-price,
+.totalAmount,
+.totalAmount .money,
+[class*="price"],
+[class*="money"] {
+  color: var(--ym-price) !important;
+}
+
+.bg-color,
+.el-button--primary,
+.el-button--primary:focus,
+.el-button--primary:hover,
+.el-button--primary.is-active,
+.el-button--primary:active {
+  background-color: var(--ym-primary) !important;
+  border-color: var(--ym-primary) !important;
+  color: #fffaf2 !important;
+}
+
+.border-color,
+.el-input.is-active .el-input__inner,
+.el-input__inner:focus,
+.el-textarea__inner:focus {
+  border-color: var(--ym-primary) !important;
+}
+
+.el-button--text,
+.el-link.el-link--primary,
+a:hover {
+  color: var(--ym-tag) !important;
+}
+
+.el-radio__input.is-checked .el-radio__inner,
+.el-checkbox__input.is-checked .el-checkbox__inner,
+.el-pagination.is-background .el-pager li:not(.disabled).active,
+.checkbox-wrapper input:checked + .icon {
+  background-color: var(--ym-primary) !important;
+  border-color: var(--ym-primary) !important;
+}
+
+.el-radio__input.is-checked + .el-radio__label,
+.el-checkbox__input.is-checked + .el-checkbox__label {
+  color: var(--ym-primary) !important;
+}
+
+.label:not(.el-form-item__label),
+.tag,
+.goods-tag,
+.store-tag,
+.activity-tag,
+.coupon-tag,
+.coupon-label,
+.product-label {
+  background-color: rgba(62, 107, 77, 0.1) !important;
+  border-color: rgba(62, 107, 77, 0.28) !important;
+  color: var(--ym-tag) !important;
+}
+
+.el-dialog,
+.el-popover,
+.goodsSearch .list .item,
+.cartList,
+.payment .detail,
+.payment .payType,
+.user-com-tab,
+.empty-box {
+  background-color: var(--ym-surface) !important;
+}
+
+.index,
+.goodsSearch,
+.goodsDetail,
+.cart,
+.order,
+.payment,
+.user,
+.login-wrapper {
+  background-color: var(--ym-bg) !important;
+}
+
+.index .seckill .header .time .styleAll {
+  background-color: var(--ym-primary) !important;
+  color: var(--ym-price) !important;
+}
+
+.footer {
+  background-color: var(--ym-top) !important;
+  color: rgba(255, 250, 242, 0.74) !important;
+}
+
+.footer a,
+.footer .item {
+  color: rgba(255, 250, 242, 0.74) !important;
+}
+
+.footer a:hover,
+.floatWindow .item:hover,
+.floatWindow .item.on {
+  color: var(--ym-price) !important;
 }
