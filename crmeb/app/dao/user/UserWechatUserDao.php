@@ -70,6 +70,45 @@ class UserWechatUserDao extends BaseDao
         return parent::getModel()->alias($alias)->join($table . ' ' . $join_alias, $alias . '.uid = ' . $join_alias . '.uid', $join);
     }
 
+    /**
+     * 获取完整用户表名
+     * @return string
+     */
+    protected function getUserTableName(): string
+    {
+        /** @var User $userModel */
+        $userModel = app()->make($this->setModel());
+        return str_replace('`', '', $userModel->getTable());
+    }
+
+    /**
+     * 获取指定IP字段关联用户数SQL
+     * @param string $field
+     * @param string $alias
+     * @return string
+     */
+    protected function getIpCountSql(string $field, string $alias = 'u'): string
+    {
+        $table = $this->getUserTableName();
+        return "(SELECT COUNT(1) FROM `{$table}` ipu WHERE ipu.is_del = 0 AND ipu.{$field} <> '' AND ipu.{$field} = {$alias}.{$field})";
+    }
+
+    /**
+     * 用户列表IP风险扩展字段
+     * @return string
+     */
+    protected function getIpRiskField(): string
+    {
+        $alias = $this->alias ?: 'u';
+        $addIpCountSql = $this->getIpCountSql('add_ip', $alias);
+        $lastIpCountSql = $this->getIpCountSql('last_ip', $alias);
+        $riskCountSql = "GREATEST({$addIpCountSql}, {$lastIpCountSql})";
+        return "{$alias}.add_ip as register_ip,{$alias}.last_ip as login_ip," .
+            "{$addIpCountSql} as register_ip_user_count,{$lastIpCountSql} as login_ip_user_count," .
+            "{$riskCountSql} as ip_risk_count," .
+            "CASE WHEN {$riskCountSql} >= 10 THEN 'blue' WHEN {$riskCountSql} >= 5 THEN 'red' WHEN {$riskCountSql} >= 2 THEN 'orange' ELSE 'green' END as ip_risk_level";
+    }
+
     public function getList(array $where, $field = '*', int $page, int $limit)
     {
         return $this->getModel()->where($where)->field($field)->page($page, $limit)->select()->toArray();
@@ -102,7 +141,9 @@ class UserWechatUserDao extends BaseDao
      */
     public function getListByModel(array $where, string $field = '', string $order = '', int $page, int $limit): array
     {
-        return $this->searchWhere($where)->field($field)->page($page, $limit)->group($this->alias . '.uid')->order(($order ? $order . ' ,' : '') . $this->alias . '.uid desc')->select()->toArray();
+        $model = $this->searchWhere($where);
+        $field = $field ? $field . ',' . $this->getIpRiskField() : $this->getIpRiskField();
+        return $model->field($field)->page($page, $limit)->group($this->alias . '.uid')->order(($order ? $order . ' ,' : '') . $this->alias . '.uid desc')->select()->toArray();
     }
 
     /**
@@ -349,6 +390,28 @@ class UserWechatUserDao extends BaseDao
                 $model = $model->whereIn($userAlias . 'user_type', ['app', 'apple']);
             } else {
                 $model = $model->where($userAlias . 'user_type', $where['user_type']);
+            }
+        }
+
+        // --- IP异常筛选 ---
+        // normal: 正常；orange: 2-4个用户；red: 5-9个用户；blue: 10个及以上用户
+        if (isset($where['ip_risk']) && $where['ip_risk'] !== '') {
+            $addIpCountSql = $this->getIpCountSql('add_ip', $this->alias ?: 'u');
+            $lastIpCountSql = $this->getIpCountSql('last_ip', $this->alias ?: 'u');
+            $riskCountSql = "GREATEST({$addIpCountSql}, {$lastIpCountSql})";
+            switch ($where['ip_risk']) {
+                case 'normal':
+                    $model = $model->whereRaw("{$riskCountSql} < 2");
+                    break;
+                case 'orange':
+                    $model = $model->whereRaw("{$riskCountSql} >= 2 AND {$riskCountSql} < 5");
+                    break;
+                case 'red':
+                    $model = $model->whereRaw("{$riskCountSql} >= 5 AND {$riskCountSql} < 10");
+                    break;
+                case 'blue':
+                    $model = $model->whereRaw("{$riskCountSql} >= 10");
+                    break;
             }
         }
 
