@@ -1,11 +1,16 @@
 import Setting from "@/setting";
+
 export default async (context, inject) => {
   // 只在客户端执行
   if (process.client) {
     try {
-      const response = await fetch(`${Setting.apiBaseURL}/custom_pc_js`);
+      const apiBaseURL = Setting.apiBaseURL || `${window.location.origin}/api`;
+      const response = await fetch(`${apiBaseURL}/custom_pc_js`);
+      if (!response.ok) return;
+
       const content = await response.text();
-      
+      if (!content || !content.trim()) return;
+
       const isHTML = content.trim().startsWith('<script');
       let externalScripts = [];
       let inlineScripts = [];
@@ -14,9 +19,9 @@ export default async (context, inject) => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(content, 'text/html');
         const scripts = doc.querySelectorAll('script');
-        
+
         externalScripts = Array.from(scripts).filter(script => script.src);
-        inlineScripts = Array.from(scripts).filter(script => !script.src);
+        inlineScripts = Array.from(scripts).filter(script => !script.src && script.textContent.trim());
       } else {
         inlineScripts = [{ textContent: content }];
       }
@@ -42,4 +47,4 @@ export default async (context, inject) => {
       console.error('Error loading dynamic scripts:', error);
     }
   }
-}
+};
