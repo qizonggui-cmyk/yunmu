@@ -40,6 +40,15 @@ class LoginController
     }
 
     /**
+     * APP 登录开关：0 关闭，1 开启。
+     * 当前未启用 APP 客户端时，默认关闭，避免外部伪造请求创建 APP 类型用户。
+     */
+    protected function appLoginEnabled(): bool
+    {
+        return (int)sys_config('app_login_enable', 0) === 1;
+    }
+
+    /**
      * H5账号登陆
      * @param Request $request
      * @return mixed
@@ -292,13 +301,15 @@ class LoginController
         if ($verifyCode != $captcha) {
             return app('json')->fail('验证码错误');
         }
+
         $user_type = $request->getFromType() ? strtolower($request->getFromType()) : 'h5';
-        if ($user_type === 'app') {
-            $user_type = 'routine';
+        if ($user_type === 'app' && !$this->appLoginEnabled()) {
+            return app('json')->fail('APP登录未启用');
         }
-        if (!in_array($user_type, ['wechat', 'routine', 'h5', 'pc'])) {
+        if (!in_array($user_type, ['wechat', 'routine', 'h5', 'pc', 'app'])) {
             $user_type = 'h5';
         }
+
         $token = $this->services->mobile($phone, $spread, $user_type, $agent_id);
         if ($token) {
             CacheService::delete('code_' . $phone);
@@ -469,8 +480,49 @@ class LoginController
      */
     public function appleLogin(Request $request, WechatServices $services)
     {
-        // 当前项目未启用 APP 客户端，禁止 Apple/APP 授权接口创建异常 APP 用户
-        return app('json')->fail('APP登录未启用');
+        if (!$this->appLoginEnabled()) {
+            return app('json')->fail('APP登录未启用');
+        }
+
+        [$openId, $phone, $email, $captcha] = $request->postMore([
+            ['openId', ''],
+            ['phone', ''],
+            ['email', ''],
+            ['captcha', '']
+        ], true);
+        if ($phone) {
+            if (!$captcha) {
+                return app('json')->fail('请输入验证码');
+            }
+            //验证验证码
+            $verifyCode = CacheService::get('code_' . $phone);
+            if (!$verifyCode)
+                return app('json')->fail('请先获取验证码');
+            $verifyCode = substr($verifyCode, 0, 6);
+            if ($verifyCode != $captcha) {
+                CacheService::delete('code_' . $phone);
+                return app('json')->fail('验证码错误');
+            }
+        } else {
+            if (!$openId) {
+                return app('json')->fail('参数错误');
+            }
+        }
+        if ($email == '') $email = substr(md5($openId), 0, 12);
+        $userInfo = [
+            'openId' => $openId,
+            'unionid' => '',
+            'avatarUrl' => sys_config('h5_avatar'),
+            'nickName' => $email,
+        ];
+        $token = $services->appAuth($userInfo, $phone, 'apple');
+        if ($token) {
+            return app('json')->success('登录成功', $token);
+        } else if ($token === false) {
+            return app('json')->success('登录成功', ['isbind' => true]);
+        } else {
+            return app('json')->fail('登录失败');
+        }
     }
 
     /**
