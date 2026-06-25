@@ -1,0 +1,48 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+
+# Runtime and local config
+.env
+.env.local
+.env.*.local
+crmeb/.env
+crmeb/runtime/
+crmeb/public/install.lock
+crmeb/public/uploads/
+
+# PHP dependencies
+crmeb/vendor/
+
+# Node dependencies
+node_modules/
+template/**/node_modules/
+
+# Frontend build outputs
+template/admin/dist/
+template/pc/.nuxt/
+template/pc/nuxt-dist/
+template/pc/build/
+template/pc/dist/
+template/uni-app/unpackage/

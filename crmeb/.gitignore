@@ -1,1 +1,7 @@
 crmeb.zip
+/vendor/
+/runtime/
+/public/install.lock
+/public/uploads/
+/.env
+*.log
