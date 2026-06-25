@@ -469,6 +469,7 @@ class LoginController
      */
     public function appleLogin(Request $request, WechatServices $services)
     {
+        // 当前项目未启用 APP 客户端，禁止 Apple/APP 授权接口创建异常 APP 用户
         return app('json')->fail('APP登录未启用');
     }
 
