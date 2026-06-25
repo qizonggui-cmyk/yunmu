@@ -48,7 +48,7 @@ class PublicController
     {
         $data['contact_number'] = sys_config('contact_number');
         $data['company_address'] = sys_config('company_address');
-        $data['copyright'] = sys_config('nncnL_crmeb_copyright', '');
+        $data['copyright'] = sys_config('nncnL_crmeb_copyright', '') ?: '2026-2028 云牧臻和';
         $data['record_No'] = sys_config('record_No');
         $data['site_name'] = sys_config('site_name');
         $data['site_keywords'] = sys_config('site_keywords');
