@@ -35,6 +35,14 @@ class WechatController
     }
 
     /**
+     * APP 登录开关：0 关闭，1 开启。
+     */
+    protected function appLoginEnabled(): bool
+    {
+        return (int)sys_config('app_login_enable', 0) === 1;
+    }
+
+    /**
      * 微信公众号服务
      * @return \think\Response
      */
@@ -85,6 +93,10 @@ class WechatController
      */
     public function appAuth(Request $request)
     {
+        if (!$this->appLoginEnabled()) {
+            return app('json')->fail('APP登录未启用');
+        }
+
         [$userInfo, $phone, $captcha] = $request->postMore([
             ['userInfo', []],
             ['phone', ''],
