@@ -39,23 +39,15 @@
         </div>
         <div class="recordNum">
           <div>
-            <span>联系电话：{{ companyInfo.contact_number }}</span>
-            <span class="line">|</span>
-
-            <span class="address">地址：{{ companyInfo.company_address }}</span>
+            <span v-if="companyInfo.contact_number">联系电话：{{ companyInfo.contact_number }}</span>
+            <span class="line" v-if="companyInfo.contact_number && companyInfo.company_address">|</span>
+            <span class="address" v-if="companyInfo.company_address">地址：{{ companyInfo.company_address }}</span>
           </div>
           <div class="record">
-            <span class="foot-box" v-if="companyInfo.copyright">
-              {{ companyInfo.copyright }}
-            </span>
-            <span class="foot-box" v-else>
-              <a href="https://www.crmeb.com" target="_blank"
-                >Copyright ©2025 CRMEB. All Rights</a
-              >
-            </span>
+            <span class="foot-box">2026-2028 云牧臻和</span>
             <span class="line" v-if="companyInfo.record_No">|</span>
             <span v-if="companyInfo.record_No">
-              <a :href="companyInfo.icp_url" target="_blank" class="num">{{
+              备案号：<a :href="companyInfo.icp_url || 'https://beian.miit.gov.cn/'" target="_blank" class="num">{{
                 companyInfo.record_No
               }}</a>
             </span>
@@ -365,7 +357,7 @@ export default {
     text-align: center;
     padding: 30px 0 48px 0;
     .address {
-      margin-left: 40px;
+      margin-left: 0;
     }
     .record {
       margin-top: 6px;
