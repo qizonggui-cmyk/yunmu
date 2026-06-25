@@ -292,7 +292,13 @@ class LoginController
         if ($verifyCode != $captcha) {
             return app('json')->fail('验证码错误');
         }
-        $user_type = $request->getFromType() ? $request->getFromType() : 'h5';
+        $user_type = $request->getFromType() ? strtolower($request->getFromType()) : 'h5';
+        if ($user_type === 'app') {
+            $user_type = 'routine';
+        }
+        if (!in_array($user_type, ['wechat', 'routine', 'h5', 'pc'])) {
+            $user_type = 'h5';
+        }
         $token = $this->services->mobile($phone, $spread, $user_type, $agent_id);
         if ($token) {
             CacheService::delete('code_' . $phone);
@@ -463,41 +469,7 @@ class LoginController
      */
     public function appleLogin(Request $request, WechatServices $services)
     {
-        [$openId, $phone, $email, $captcha] = $request->postMore([
-            ['openId', ''],
-            ['phone', ''],
-            ['email', ''],
-            ['captcha', '']
-        ], true);
-        if ($phone) {
-            if (!$captcha) {
-                return app('json')->fail('请输入验证码');
-            }
-            //验证验证码
-            $verifyCode = CacheService::get('code_' . $phone);
-            if (!$verifyCode)
-                return app('json')->fail('请先获取验证码');
-            $verifyCode = substr($verifyCode, 0, 6);
-            if ($verifyCode != $captcha) {
-                CacheService::delete('code_' . $phone);
-                return app('json')->fail('验证码错误');
-            }
-        }
-        if ($email == '') $email = substr(md5($openId), 0, 12);
-        $userInfo = [
-            'openId' => $openId,
-            'unionid' => '',
-            'avatarUrl' => sys_config('h5_avatar'),
-            'nickName' => $email,
-        ];
-        $token = $services->appAuth($userInfo, $phone, 'apple');
-        if ($token) {
-            return app('json')->success('登录成功', $token);
-        } else if ($token === false) {
-            return app('json')->success('登录成功', ['isbind' => true]);
-        } else {
-            return app('json')->fail('登录失败');
-        }
+        return app('json')->fail('APP登录未启用');
     }
 
     /**
@@ -522,34 +494,28 @@ class LoginController
             ['captchaType', ''],
         ], true);
         try {
-            aj_captcha_check_one($captchaType, $token, $pointJson);
-            return app('json')->success();
+            $check = aj_captcha_check_one($captchaType, $token, $pointJson);
+            if ($check) return app('json')->success('ok');
         } catch (\Throwable $e) {
-            return app('json')->fail('验证码错误');
         }
+        return app('json')->fail('验证失败');
     }
 
     /**
-     * 远程登录接口
-     * @param Request $request
-     * @return \think\Response
-     * @throws \Psr\SimpleCache\InvalidArgumentException
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @author wuhaotian
-     * @email 442384644@qq.com
-     * @date 2024/5/21
+     * 滑块二次验证
+     * @return mixed
      */
-    public function remoteRegister(Request $request)
+    public function ajcheck_twice(Request $request)
     {
-        if (!Env::get('app_debug', false)) {
-            return app('json')->fail('生产环境无法使用此功能，如需使用请修改.env文件中app_debug项为true');
-        }
-        [$remote_token] = $request->getMore([
-            ['remote_token', ''],
+        [$captchaVerification, $captchaType] = $request->postMore([
+            ['captchaVerification', ''],
+            ['captchaType', ''],
         ], true);
-        if ($remote_token == '') return app('json')->success('登录失败', ['get_remote_login_url' => sys_config('get_remote_login_url')]);
-        return app('json')->success('登录成功', $this->services->remoteRegister($remote_token));
+        try {
+            $check = aj_captcha_check_two($captchaType, $captchaVerification);
+            if ($check) return app('json')->success('ok');
+        } catch (\Throwable $e) {
+        }
+        return app('json')->fail('验证失败');
     }
 }
