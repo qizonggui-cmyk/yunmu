@@ -3,64 +3,71 @@
 @import "./css.css";
 @import "./reset.css";
 
+$user-tab-border: #f0f0f0;
 
-.user-com-tab{
-  border-bottom: 1px solid #ECECEC;
-  span{
+.user-com-tab {
+  border-bottom: 1px solid $user-tab-border;
+  span {
     position: relative;
-    height:60px;
+    height: 60px;
     line-height: 60px;
     font-size: 16px;
     color: #999999;
     cursor: pointer;
     padding: 0 26px 0 8px;
     margin-right: 26px;
-    &.on{
-      color: #200e32;
+    &.on {
+      color: #ff9900;
       font-size: 18px;
-      &:after{
+      &:after {
         content: '';
         position: absolute;
         left: 0;
         bottom: -21px;
         width: 100%;
         height: 2px;
-        background: #200e32;
+        background: #ff9900;
       }
     }
   }
 }
-.empty-box{
+.empty-box {
   padding-top: 150px;
   text-align: center;
-  p{
+  p {
     margin-top: 10px;
     font-size: 12px;
     color: #969696;
   }
-  img{
+  img {
     display: inline-block;
   }
 }
 
-$ym-top: #0f2f28;
-$ym-primary: #200e32;
-$ym-price: #c8a35b;
-$ym-tag: #3e6b4d;
-$ym-bg: #f7f1e7;
-$ym-surface: #fffaf2;
-$ym-border: #e6dccd;
-$ym-text: #241f1a;
+$ym-green: #99cc33;
+$ym-orange: #ff9900;
+$ym-yellow: #ffcc00;
+$ym-bg: #ffffff;
+$ym-surface: #ffffff;
+$ym-soft: #fffaf0;
+$ym-border: #f0eadc;
+$ym-text: #222222;
+$ym-muted: #777777;
 
 :root {
-  --ym-top: #{$ym-top};
-  --ym-primary: #{$ym-primary};
-  --ym-price: #{$ym-price};
-  --ym-tag: #{$ym-tag};
+  --ym-green: #{$ym-green};
+  --ym-orange: #{$ym-orange};
+  --ym-yellow: #{$ym-yellow};
+  --ym-primary: #{$ym-green};
+  --ym-action: #{$ym-orange};
+  --ym-price: #{$ym-orange};
+  --ym-highlight: #{$ym-yellow};
   --ym-bg: #{$ym-bg};
   --ym-surface: #{$ym-surface};
+  --ym-soft: #{$ym-soft};
   --ym-border: #{$ym-border};
   --ym-text: #{$ym-text};
+  --ym-muted: #{$ym-muted};
 }
 
 body,
@@ -71,58 +78,60 @@ body,
 }
 
 .header.min_wrapper_1200 {
-  background-color: var(--ym-top) !important;
-  color: rgba(255, 250, 242, 0.78) !important;
+  background-color: var(--ym-green) !important;
+  color: #1f2a12 !important;
 }
 
 .header.min_wrapper_1200 a,
 .header.min_wrapper_1200 .user,
 .header.min_wrapper_1200 .user .item,
 .header.min_wrapper_1200 .cartNum {
-  color: rgba(255, 250, 242, 0.78) !important;
+  color: #1f2a12 !important;
 }
 
 .header.min_wrapper_1200 a:hover,
 .header.min_wrapper_1200 .user .item:hover {
-  color: #fffaf2 !important;
+  color: #000000 !important;
 }
 
 .header.min_wrapper_1200 .cartNum {
-  background: rgba(255, 255, 255, 0.1) !important;
-  border: 1px solid rgba(255, 250, 242, 0.12);
+  background: rgba(255, 153, 0, 0.88) !important;
+  border: 1px solid rgba(255, 204, 0, 0.55);
+  color: #ffffff !important;
 }
 
 .header.min_wrapper_1200 .cartNum.on {
-  background: var(--ym-primary) !important;
-  color: var(--ym-price) !important;
+  background: var(--ym-orange) !important;
+  color: #ffffff !important;
   opacity: 1 !important;
 }
 
 .nav {
-  background: var(--ym-surface) !important;
+  background: #ffffff !important;
   border-bottom: 1px solid var(--ym-border);
-  box-shadow: 0 8px 24px rgba(15, 47, 40, 0.06);
+  box-shadow: 0 8px 24px rgba(153, 204, 51, 0.08);
 }
 
 .nav .navCon .list .item {
-  color: #243b32 !important;
+  color: #222222 !important;
 }
 
 .nav .navCon .list .item:hover,
 .nav .navCon .list .item.font-color {
-  color: var(--ym-tag) !important;
+  color: var(--ym-orange) !important;
 }
 
 .nav .search {
-  border-color: var(--ym-primary) !important;
-  background: #fffdf8 !important;
+  border-color: var(--ym-orange) !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.08);
 }
 
 .nav .search .bnt,
 .nav .search .btn,
 .nav .search button {
-  background: var(--ym-primary) !important;
-  color: #fffaf2 !important;
+  background: var(--ym-orange) !important;
+  color: #ffffff !important;
 }
 
 .font-color,
@@ -134,7 +143,7 @@ body,
 .totalAmount .money,
 [class*="price"],
 [class*="money"] {
-  color: var(--ym-price) !important;
+  color: var(--ym-orange) !important;
 }
 
 .bg-color,
@@ -143,35 +152,41 @@ body,
 .el-button--primary:hover,
 .el-button--primary.is-active,
 .el-button--primary:active {
-  background-color: var(--ym-primary) !important;
-  border-color: var(--ym-primary) !important;
-  color: #fffaf2 !important;
+  background-color: var(--ym-orange) !important;
+  border-color: var(--ym-orange) !important;
+  color: #ffffff !important;
+}
+
+.bg-color:hover,
+.el-button--primary:hover {
+  background-color: #ff8a00 !important;
+  border-color: #ff8a00 !important;
 }
 
 .border-color,
 .el-input.is-active .el-input__inner,
 .el-input__inner:focus,
 .el-textarea__inner:focus {
-  border-color: var(--ym-primary) !important;
+  border-color: var(--ym-orange) !important;
 }
 
 .el-button--text,
 .el-link.el-link--primary,
 a:hover {
-  color: var(--ym-tag) !important;
+  color: var(--ym-orange) !important;
 }
 
 .el-radio__input.is-checked .el-radio__inner,
 .el-checkbox__input.is-checked .el-checkbox__inner,
 .el-pagination.is-background .el-pager li:not(.disabled).active,
 .checkbox-wrapper input:checked + .icon {
-  background-color: var(--ym-primary) !important;
-  border-color: var(--ym-primary) !important;
+  background-color: var(--ym-orange) !important;
+  border-color: var(--ym-orange) !important;
 }
 
 .el-radio__input.is-checked + .el-radio__label,
 .el-checkbox__input.is-checked + .el-checkbox__label {
-  color: var(--ym-primary) !important;
+  color: var(--ym-orange) !important;
 }
 
 .label:not(.el-form-item__label),
@@ -182,9 +197,9 @@ a:hover {
 .coupon-tag,
 .coupon-label,
 .product-label {
-  background-color: rgba(62, 107, 77, 0.1) !important;
-  border-color: rgba(62, 107, 77, 0.28) !important;
-  color: var(--ym-tag) !important;
+  background-color: rgba(153, 204, 51, 0.12) !important;
+  border-color: rgba(153, 204, 51, 0.38) !important;
+  color: #6fa300 !important;
 }
 
 .el-dialog,
@@ -195,7 +210,7 @@ a:hover {
 .payment .payType,
 .user-com-tab,
 .empty-box {
-  background-color: var(--ym-surface) !important;
+  background-color: #ffffff !important;
 }
 
 .index,
@@ -206,26 +221,32 @@ a:hover {
 .payment,
 .user,
 .login-wrapper {
-  background-color: var(--ym-bg) !important;
+  background-color: #ffffff !important;
 }
 
 .index .seckill .header .time .styleAll {
-  background-color: var(--ym-primary) !important;
-  color: var(--ym-price) !important;
+  background-color: var(--ym-orange) !important;
+  color: #ffffff !important;
 }
 
 .footer {
-  background-color: var(--ym-top) !important;
-  color: rgba(255, 250, 242, 0.74) !important;
+  background-color: #ffffff !important;
+  border-top: 1px solid var(--ym-border);
+  color: #666666 !important;
 }
 
 .footer a,
 .footer .item {
-  color: rgba(255, 250, 242, 0.74) !important;
+  color: #666666 !important;
 }
 
 .footer a:hover,
 .floatWindow .item:hover,
 .floatWindow .item.on {
-  color: var(--ym-price) !important;
+  color: var(--ym-orange) !important;
+}
+
+.floatWindow {
+  border: 1px solid var(--ym-border);
+  box-shadow: 0 8px 28px rgba(153, 204, 51, 0.12) !important;
 }
