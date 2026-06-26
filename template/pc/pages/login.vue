@@ -6,25 +6,39 @@
           <div class="icon" @click="goHome">
             <img :src="info.logoUrl" />
           </div>
-          <div class="name" @click="goHome">官方商城</div>
+          <div class="name" @click="goHome">云牧臻和</div>
         </div>
         <div class="acea-row row-middle">
           <div class="item">
             <span class="iconfont icon-pinzhongqiquan font-color"></span
-            >品种齐全
+            >高原甄选
           </div>
           <div class="item">
             <span class="iconfont icon-dijiachangxuan font-color"></span
-            >低价畅选
+            >绿色有机
           </div>
           <div class="item">
             <span class="iconfont icon-zhengpinhanghuo font-color"></span
-            >正品行货
+            >源头直供
           </div>
         </div>
       </div>
     </div>
     <div class="loginBg min_wrapper_1200">
+      <div class="brandPanel">
+        <div class="eyebrow">YUNMU PREMIUM SELECTION</div>
+        <h1>源自高原的绿色臻选</h1>
+        <p>
+          严选高原生态好物，坚持源头甄选、绿色健康、品质可溯，
+          把天然好味道送到您的餐桌与礼赠场景。
+        </p>
+        <div class="brandTags acea-row row-middle">
+          <span>高原生态</span>
+          <span>绿色有机</span>
+          <span>品质礼赠</span>
+          <span>源头直供</span>
+        </div>
+      </div>
       <div class="wrapper" v-show="current === 1">
         <div class="title">
           快速登录/注册
@@ -122,14 +136,18 @@
     </div>
     <div class="footer wrapper_1200">
       <div>
-        <span>联系电话：{{ info.contact_number }}</span>
-        <span class="adress">地址：{{ info.company_address }}</span>
+        <span v-if="info.contact_number">联系电话：{{ info.contact_number }}</span>
+        <span class="line" v-if="info.contact_number && info.company_address">|</span>
+        <span class="adress" v-if="info.company_address">地址：{{ info.company_address }}</span>
       </div>
       <div class="record">
-        {{ info.copyright
-        }}<a href="https://beian.miit.gov.cn/" target="_blank" class="num">{{
-          info.record_No
-        }}</a>
+        <span>2026-2028 云牧臻和</span>
+        <span class="line" v-if="info.record_No">|</span>
+        <span v-if="info.record_No">
+          备案号：<a href="https://beian.miit.gov.cn/" target="_blank" class="num">{{
+            info.record_No
+          }}</a>
+        </span>
       </div>
     </div>
     <el-dialog
@@ -381,6 +399,9 @@ export default {
 
 <style scoped lang="scss">
 .login {
+  min-height: 100vh;
+  background: #f7f1e7;
+  overflow-x: hidden;
   .header {
     height: 110px;
     .icon {
@@ -393,26 +414,99 @@ export default {
       }
     }
     .name {
-      font-size: 28px;
+      font-size: 30px;
       margin-left: 15px;
       cursor: pointer;
+      color: #200e32;
+      font-weight: 600;
+      letter-spacing: 2px;
     }
     .item {
       margin-left: 40px;
       font-size: 16px;
-      color: #666666;
+      color: #3e6b4d;
       .iconfont {
         margin-right: 6px;
         font-size: 20px;
+        color: #c8a35b !important;
       }
     }
   }
   .loginBg {
     width: 100%;
-    height: 608px;
-    background: url(../assets/images/loginBg.jpg) no-repeat;
-    background-size: 100% 100%;
+    height: 640px;
+    background:
+      radial-gradient(circle at 18% 18%, rgba(200, 163, 91, 0.2) 0, rgba(200, 163, 91, 0) 24%),
+      radial-gradient(circle at 70% 75%, rgba(62, 107, 77, 0.32) 0, rgba(62, 107, 77, 0) 30%),
+      linear-gradient(135deg, #0f2f28 0%, #183c32 43%, #200e32 100%);
     position: relative;
+    overflow: hidden;
+    &:before {
+      content: "";
+      position: absolute;
+      left: -8%;
+      bottom: -38%;
+      width: 68%;
+      height: 70%;
+      background: rgba(255, 250, 242, 0.08);
+      border-radius: 50% 50% 0 0;
+      transform: rotate(6deg);
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      right: 8%;
+      top: 56px;
+      width: 360px;
+      height: 360px;
+      border: 1px solid rgba(200, 163, 91, 0.24);
+      border-radius: 50%;
+      box-shadow: 0 0 0 80px rgba(200, 163, 91, 0.03), 0 0 0 150px rgba(255, 250, 242, 0.03);
+    }
+    .brandPanel {
+      position: absolute;
+      left: 50%;
+      top: 122px;
+      width: 520px;
+      margin-left: -590px;
+      color: #fffaf2;
+      z-index: 2;
+      .eyebrow {
+        display: inline-block;
+        padding: 8px 14px;
+        border: 1px solid rgba(200, 163, 91, 0.55);
+        border-radius: 18px;
+        color: #d8bd7f;
+        font-size: 12px;
+        letter-spacing: 2px;
+      }
+      h1 {
+        margin-top: 28px;
+        font-size: 50px;
+        line-height: 1.18;
+        font-weight: 600;
+        letter-spacing: 3px;
+      }
+      p {
+        width: 470px;
+        margin-top: 22px;
+        font-size: 17px;
+        line-height: 1.9;
+        color: rgba(255, 250, 242, 0.82);
+      }
+      .brandTags {
+        margin-top: 34px;
+        span {
+          margin-right: 12px;
+          padding: 8px 15px;
+          border-radius: 18px;
+          background: rgba(255, 250, 242, 0.1);
+          border: 1px solid rgba(255, 250, 242, 0.18);
+          color: #fffaf2;
+          font-size: 13px;
+        }
+      }
+    }
     .wxLogin {
       width: 450px;
       height: 427px;
@@ -467,42 +561,57 @@ export default {
       }
     }
     .wrapper {
-      width: 450px;
-      height: 427px;
-      background-color: #fff;
+      width: 430px;
+      min-height: 430px;
+      background: rgba(255, 250, 242, 0.96);
+      border: 1px solid rgba(200, 163, 91, 0.22);
+      border-radius: 22px;
+      box-shadow: 0 28px 70px rgba(6, 22, 18, 0.34);
       position: absolute;
-      top: 91px;
-      right: 360px;
+      top: 86px;
+      right: 50%;
+      margin-right: -590px;
       text-align: center;
-      padding: 70px 0;
+      padding: 58px 0 46px;
+      z-index: 3;
       .title {
-        font-size: 20px;
-        font-weight: 400;
+        font-size: 22px;
+        font-weight: 600;
+        color: #200e32;
         position: relative;
+        letter-spacing: 1px;
         .iconfont {
           position: absolute;
-          top: -71px;
-          right: 0;
-          font-size: 60px;
+          top: -59px;
+          right: 18px;
+          font-size: 50px;
+          color: #3e6b4d;
           cursor: pointer;
         }
       }
       .item {
-        width: 358px;
+        width: 342px;
         height: 50px;
-        border: 1px solid #dbdbdb;
+        border: 1px solid #e6dccd;
+        border-radius: 8px;
         margin: 0 auto;
+        background: #fffdf8;
+        transition: all 0.2s ease;
+        &:focus-within {
+          border-color: #c8a35b;
+          box-shadow: 0 0 0 3px rgba(200, 163, 91, 0.12);
+        }
         &.phone {
           margin-top: 34px;
           .number {
             width: 65px;
             height: 100%;
             line-height: 50px;
-            color: #666666;
-            border-right: 1px solid #dbdbdb;
+            color: #3e6b4d;
+            border-right: 1px solid #e6dccd;
           }
           input {
-            width: 291px;
+            width: 275px;
           }
         }
         &.pwd {
@@ -514,16 +623,17 @@ export default {
         &.verificat {
           margin-top: 20px;
           input {
-            width: 246px;
+            width: 230px;
           }
           .code {
             width: 110px;
             height: 100%;
             border: 0;
-            background-color: #fff;
-            border-left: 1px solid #dbdbdb;
+            background-color: transparent;
+            border-left: 1px solid #e6dccd;
+            color: #3e6b4d !important;
             &.on {
-              color: #ccc !important;
+              color: #b9b2a8 !important;
             }
           }
         }
@@ -532,50 +642,61 @@ export default {
           height: 100%;
           border: 0;
           outline: none;
+          color: #241f1a;
+          background: transparent;
         }
       }
       .signIn {
-        width: 358px;
+        width: 342px;
         height: 50px;
         text-align: center;
         line-height: 50px;
         margin: 24px auto 0 auto;
-        color: #fff;
+        color: #fffaf2;
         cursor: pointer;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #200e32, #3b1b56) !important;
+        box-shadow: 0 12px 28px rgba(32, 14, 50, 0.24);
+        letter-spacing: 2px;
       }
       .fastLogin {
         margin-top: 14px;
         cursor: pointer;
+        color: #3e6b4d !important;
       }
     }
   }
   .isAgree {
-    width: 358px;
+    width: 342px;
     margin: 12px auto 0 auto;
     text-align: left;
     .agree {
       margin-left: 6px;
-      color: #999999;
+      color: #7a7166;
       cursor: pointer;
       .agreement {
-        color: #e93323;
+        color: #c8a35b;
       }
     }
   }
   .footer {
     text-align: center;
     font-size: 12px;
-    color: #555;
-    margin-top: 100px;
+    color: #5c554e;
+    margin-top: 42px;
+    padding-bottom: 38px;
+    .line {
+      margin: 0 10px;
+    }
     .adress {
-      margin-left: 40px;
+      margin-left: 0;
     }
     .record {
       margin-top: 6px;
       .num {
-        margin-left: 10px;
+        margin-left: 0;
         &:hover {
-          color: #e93323;
+          color: #3e6b4d;
         }
       }
     }
