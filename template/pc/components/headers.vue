@@ -19,7 +19,7 @@
           <nuxt-link to="/login" class="item" v-else>登录/注册</nuxt-link>
           <nuxt-link :to="{ path: '/user/messageCenter?page_type=2' }" class="item service_color">
             <div class="iconfont icon-duoshanghupc-daohuotongzhi"></div>
-            <view v-if="userInfo.service_num" class="num"> </view>
+            <div v-if="$store.state.service_num" class="num"> </div>
             <span class="service_num" v-if="$store.state.service_num">{{
     $store.state.service_num >= 100 ? "99+" : $store.state.service_num
   }}</span>
@@ -128,19 +128,19 @@ export default {
 .header {
   width: 100%;
   height: 40px;
-  background-color: #282828;
+  background-color: #99cc33;
   font-size: 12px;
-  color: #b4b4b4;
+  color: #1f2a12;
   cursor: pointer;
 
   .headerCon {
     height: 100%;
 
     a {
-      color: #b4b4b4;
+      color: #1f2a12;
 
       &:hover {
-        color: #fff;
+        color: #000;
       }
     }
 
@@ -155,10 +155,10 @@ export default {
         margin-right: 8px;
         position: relative;
         padding-left: 8px;
-        color: #b4b4b4;
+        color: #1f2a12;
 
         &:hover {
-          color: #fff;
+          color: #000;
         }
 
         &~.item:before {
@@ -166,7 +166,7 @@ export default {
           content: " ";
           width: 1px;
           height: 14px;
-          background-color: rgba(255, 255, 255, 0.11);
+          background-color: rgba(31, 42, 18, 0.2);
           left: 0;
           top: 50%;
           margin-top: -7px;
@@ -197,23 +197,24 @@ export default {
       .cartNum {
         width: 118px;
         height: 40px;
-        background: #3c3c3c;
+        background: #ff9900;
         text-align: center;
         line-height: 40px;
-        color: #b4b4b4;
+        color: #fff;
         margin-left: 10px;
 
         &:hover {
           color: #fff;
+          background: #ff8a00;
         }
 
         &.on {
-          background: #e93323;
+          background: #ff9900;
           color: #fff;
-          opacity: 0.75;
+          opacity: 1;
 
           &:hover {
-            opacity: 1;
+            background: #ff8a00;
           }
         }
 
@@ -229,6 +230,8 @@ export default {
   width: 100%;
   height: 96px;
   background: #ffffff;
+  border-bottom: 1px solid #f0eadc;
+  box-shadow: 0 8px 24px rgba(153, 204, 51, 0.08);
 
   .navCon {
     height: 100%;
@@ -253,13 +256,14 @@ export default {
         .item {
           padding: 15px 10px;
           margin-right: 13px;
-          color: #282828;
+          color: #222222;
           font-size: 16px;
           font-weight: 400;
           cursor: pointer;
 
-          &:hover {
-            color: #e93323;
+          &:hover,
+          &.font-color {
+            color: #ff9900;
           }
         }
       }
@@ -268,9 +272,10 @@ export default {
     .search {
       width: 360px;
       height: 40px;
-      border: 1px solid #e93323;
+      border: 1px solid #ff9900;
       border-radius: 2px;
       cursor: pointer;
+      box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.08);
 
       .text {
         width: 290px;
@@ -298,6 +303,7 @@ export default {
         text-align: center;
         line-height: 40px;
         color: #fff;
+        background: #ff9900;
       }
     }
   }
@@ -349,10 +355,10 @@ export default {
   top: -6px;
   left: 14px;
   font-size: 10px;
-  background-color: #fff;
+  background-color: #ffcc00;
   border-radius: 10px;
   padding: 0 3px;
-  color: rgb(201, 18, 18);
+  color: #1f2a12;
 }
 
 .service_color:hover {
