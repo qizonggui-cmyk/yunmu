@@ -250,3 +250,75 @@ a:hover {
   border: 1px solid var(--ym-border);
   box-shadow: 0 8px 28px rgba(153, 204, 51, 0.12) !important;
 }
+
+html body #__nuxt #__layout .login,
+html body #__nuxt #__layout .login .loginBg {
+  background-color: #ffffff !important;
+}
+
+html body #__nuxt #__layout .login .name,
+html body #__nuxt #__layout .login .brandPanel,
+html body #__nuxt #__layout .login .brandPanel h1,
+html body #__nuxt #__layout .login .wrapper .title {
+  color: #222222 !important;
+}
+
+html body #__nuxt #__layout .login .header .item,
+html body #__nuxt #__layout .login .brandTags span,
+html body #__nuxt #__layout .login .wechatLogin,
+html body #__nuxt #__layout .login .fastLogin,
+html body #__nuxt #__layout .login .number,
+html body #__nuxt #__layout .login .code {
+  color: #6fa300 !important;
+}
+
+html body #__nuxt #__layout .login .header .iconfont,
+html body #__nuxt #__layout .login .eyebrow,
+html body #__nuxt #__layout .login .agreement {
+  color: #ff9900 !important;
+}
+
+html body #__nuxt #__layout .login .eyebrow {
+  border-color: rgba(255, 153, 0, 0.45) !important;
+  background: rgba(255, 204, 0, 0.14) !important;
+}
+
+html body #__nuxt #__layout .login .brandTags span {
+  background: rgba(153, 204, 51, 0.12) !important;
+  border-color: rgba(153, 204, 51, 0.28) !important;
+}
+
+html body #__nuxt #__layout .login .wrapper {
+  background: #ffffff !important;
+  border-color: rgba(153, 204, 51, 0.26) !important;
+  box-shadow: 0 24px 66px rgba(153, 204, 51, 0.12) !important;
+}
+
+html body #__nuxt #__layout .login .wrapper .item:focus-within {
+  border-color: #ff9900 !important;
+  box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.12) !important;
+}
+
+html body #__nuxt #__layout .login .wrapper .signIn.bg-color {
+  background: #ff9900 !important;
+  box-shadow: 0 12px 28px rgba(255, 153, 0, 0.24) !important;
+}
+
+html body #__nuxt #__layout .login .wrapper .signIn.bg-color:hover {
+  background: #ff8a00 !important;
+}
+
+html body #__nuxt #__layout .login .wechatLogin {
+  border-color: rgba(153, 204, 51, 0.38) !important;
+  background: rgba(153, 204, 51, 0.08) !important;
+}
+
+html body #__nuxt #__layout .login .wechatLogin:hover {
+  color: #ffffff !important;
+  background: #99cc33 !important;
+  border-color: #99cc33 !important;
+}
+
+html body #__nuxt #__layout .login .wechatLogin:hover .iconfont {
+  color: #ffffff !important;
+}
