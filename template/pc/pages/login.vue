@@ -400,7 +400,7 @@ export default {
 <style scoped lang="scss">
 .login {
   min-height: 100vh;
-  background: #f7f1e7;
+  background: #ffffff;
   overflow-x: hidden;
   .header {
     height: 110px;
@@ -436,11 +436,13 @@ export default {
     width: 100%;
     height: 640px;
     background:
-      radial-gradient(circle at 18% 18%, rgba(200, 163, 91, 0.2) 0, rgba(200, 163, 91, 0) 24%),
-      radial-gradient(circle at 70% 75%, rgba(62, 107, 77, 0.32) 0, rgba(62, 107, 77, 0) 30%),
-      linear-gradient(135deg, #0f2f28 0%, #183c32 43%, #200e32 100%);
+      radial-gradient(circle at 16% 18%, rgba(200, 163, 91, 0.12) 0, rgba(200, 163, 91, 0) 24%),
+      radial-gradient(circle at 78% 76%, rgba(62, 107, 77, 0.1) 0, rgba(62, 107, 77, 0) 32%),
+      linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
     position: relative;
     overflow: hidden;
+    border-top: 1px solid rgba(230, 220, 205, 0.7);
+    border-bottom: 1px solid rgba(230, 220, 205, 0.7);
     &:before {
       content: "";
       position: absolute;
@@ -448,7 +450,7 @@ export default {
       bottom: -38%;
       width: 68%;
       height: 70%;
-      background: rgba(255, 250, 242, 0.08);
+      background: rgba(15, 47, 40, 0.035);
       border-radius: 50% 50% 0 0;
       transform: rotate(6deg);
     }
@@ -459,9 +461,9 @@ export default {
       top: 56px;
       width: 360px;
       height: 360px;
-      border: 1px solid rgba(200, 163, 91, 0.24);
+      border: 1px solid rgba(200, 163, 91, 0.16);
       border-radius: 50%;
-      box-shadow: 0 0 0 80px rgba(200, 163, 91, 0.03), 0 0 0 150px rgba(255, 250, 242, 0.03);
+      box-shadow: 0 0 0 80px rgba(200, 163, 91, 0.025), 0 0 0 150px rgba(62, 107, 77, 0.025);
     }
     .brandPanel {
       position: absolute;
@@ -469,16 +471,17 @@ export default {
       top: 122px;
       width: 520px;
       margin-left: -590px;
-      color: #fffaf2;
+      color: #200e32;
       z-index: 2;
       .eyebrow {
         display: inline-block;
         padding: 8px 14px;
         border: 1px solid rgba(200, 163, 91, 0.55);
         border-radius: 18px;
-        color: #d8bd7f;
+        color: #a9823b;
         font-size: 12px;
         letter-spacing: 2px;
+        background: rgba(200, 163, 91, 0.06);
       }
       h1 {
         margin-top: 28px;
@@ -486,13 +489,14 @@ export default {
         line-height: 1.18;
         font-weight: 600;
         letter-spacing: 3px;
+        color: #200e32;
       }
       p {
         width: 470px;
         margin-top: 22px;
         font-size: 17px;
         line-height: 1.9;
-        color: rgba(255, 250, 242, 0.82);
+        color: #5c554e;
       }
       .brandTags {
         margin-top: 34px;
@@ -500,9 +504,9 @@ export default {
           margin-right: 12px;
           padding: 8px 15px;
           border-radius: 18px;
-          background: rgba(255, 250, 242, 0.1);
-          border: 1px solid rgba(255, 250, 242, 0.18);
-          color: #fffaf2;
+          background: rgba(62, 107, 77, 0.08);
+          border: 1px solid rgba(62, 107, 77, 0.16);
+          color: #3e6b4d;
           font-size: 13px;
         }
       }
@@ -563,10 +567,10 @@ export default {
     .wrapper {
       width: 430px;
       min-height: 430px;
-      background: rgba(255, 250, 242, 0.96);
+      background: #ffffff;
       border: 1px solid rgba(200, 163, 91, 0.22);
       border-radius: 22px;
-      box-shadow: 0 28px 70px rgba(6, 22, 18, 0.34);
+      box-shadow: 0 24px 66px rgba(15, 47, 40, 0.12);
       position: absolute;
       top: 86px;
       right: 50%;
