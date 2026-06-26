@@ -8,7 +8,7 @@ module.exports = {
    ** Headers of the page
    */
   head: {
-    title: "",
+    title: "云牧臻和｜高原绿色臻选商城",
     meta: [
       { charset: "utf-8" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
@@ -22,13 +22,13 @@ module.exports = {
         hid: "keywords",
         name: "keywords",
         content:
-          "CRMEB 新零售社交电商 社交电商系统 小程序商城系统 公众号商城系统 商城系统源码 免费商城系统 商城系统开发 开源商城系统 CRMEB源码 微商城源码 多店商城系统 小程序直播电商系统 知识付费系统源码 SCRM 客户管理 客户营销系统 多商户商城 B2B2C B2C B2B O2O",
+          "云牧臻和,高原绿色臻选商城,高原生态食品,绿色有机产品,高原羊肉,福建白茶,西藏虫草,生态农牧产品,源头直供,品质礼盒,健康食材,天然好味道,云牧商城",
       },
       {
         hid: "description",
         name: "description",
         content:
-          "CRMEB开源会员电商营销系统，依托社交营销应用场景，独创将用户管理系统与社交电商系统创新性深度集成，充分将公域流量转为私域流量，帮助企业快速积累用户并实现精准营销，一次购买永久享受免费升级服务免费提供升级教程。",
+          "云牧臻和专注高原绿色臻选产品，严选高原生态羊肉、福建白茶、西藏虫草等品质好物，坚持源头甄选、绿色健康、品质可溯，把天然好味道与高品质农牧产品送到您的餐桌与礼赠场景。",
       },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
