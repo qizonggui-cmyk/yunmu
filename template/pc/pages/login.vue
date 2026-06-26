@@ -42,13 +42,11 @@
       <div class="wrapper" v-show="current === 1">
         <div class="title">
           快速登录/注册
-          <!--@click="current = 3"-->
           <span
             @click="ewmLogin"
             v-if="appidNum"
             class="iconfont icon-weixindenglu1"
           ></span>
-          <!-- <a :href="`https://open.weixin.qq.com/connect/qrconnect?appid=${appidNum}&redirect_uri=${hosts}&response_type=code&scope=snsapi_login&state=EqMkUDWh8F3euWlt23jHJ8ZJuaTAVPZyiKEoq5U0`" v-if="appidNum" class="iconfont icon-weixindenglu1"></a> -->
         </div>
         <div class="item phone acea-row row-middle">
           <div class="number">+86</div>
@@ -77,17 +75,19 @@
         </div>
         <div class="signIn bg-color" @click="loginMobile">登录/注册</div>
         <div class="fastLogin font-color" @click="current = 2">账号登录</div>
+        <div class="wechatLogin" v-if="appidNum" @click="ewmLogin">
+          <span class="iconfont icon-weixin4"></span>
+          微信扫码登录
+        </div>
       </div>
       <div class="wrapper" v-show="current === 2">
         <div class="title">
           账号登录
-          <!--@click="current = 3"-->
           <span
             @click="ewmLogin"
             v-if="appidNum"
             class="iconfont icon-weixindenglu1"
           ></span>
-          <!-- <a :href="`https://open.weixin.qq.com/connect/qrconnect?appid=${appidNum}&redirect_uri=${hosts}&response_type=code&scope=snsapi_login&state=EqMkUDWh8F3euWlt23jHJ8ZJuaTAVPZyiKEoq5U0`" v-if="appidNum" class="iconfont icon-weixindenglu1"></a> -->
         </div>
         <div class="item phone acea-row row-middle">
           <div class="number">+86</div>
@@ -115,24 +115,11 @@
         <div class="fastLogin font-color" @click="current = 1">
           快速登录/注册
         </div>
+        <div class="wechatLogin" v-if="appidNum" @click="ewmLogin">
+          <span class="iconfont icon-weixin4"></span>
+          微信扫码登录
+        </div>
       </div>
-      <!--<div class="wxLogin" v-if="current === 3">-->
-      <!--<div class="title">扫码登录<div class="iconfont icon-zhanghaodenglu1" @click="current = 1"></div></div>-->
-      <!--<div class="wxCode">-->
-      <!--<div class="acea-row row-between-wrapper">-->
-      <!--<span class="iconfont icon-erweimabianjiao"></span>-->
-      <!--<span class="iconfont icon-erweimabianjiao right"></span>-->
-      <!--</div>-->
-      <!--<div class="pictrue">-->
-      <!--<img src="../assets/images/loginBg.jpg">-->
-      <!--</div>-->
-      <!--<div class="acea-row row-between-wrapper">-->
-      <!--<span class="iconfont icon-erweimabianjiao bottomL"></span>-->
-      <!--<span class="iconfont icon-erweimabianjiao right bottomR"></span>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--<div class="tip">请使用微信扫一扫登录</div>-->
-      <!--</div>-->
     </div>
     <div class="footer wrapper_1200">
       <div>
@@ -255,8 +242,8 @@ export default {
       }
     },
     ewmLogin() {
+      if (!this.appidNum) return this.$message.error("暂未配置微信扫码登录");
       if (!this.agreement) return this.$message.error("请确认阅读用户协议");
-      // this.hosts 使用uri编码
       let hosts = encodeURIComponent(this.hosts);
       window.location.href = `https://open.weixin.qq.com/connect/qrconnect?appid=${this.appidNum}&redirect_uri=${hosts}&response_type=code&scope=snsapi_login&state=EqMkUDWh8F3euWlt23jHJ8ZJuaTAVPZyiKEoq5U0`;
     },
@@ -511,59 +498,6 @@ export default {
         }
       }
     }
-    .wxLogin {
-      width: 450px;
-      height: 427px;
-      background: #ffffff;
-      position: absolute;
-      right: 360px;
-      top: 91px;
-      padding-top: 34px;
-      .title {
-        font-weight: 400;
-        font-size: 20px;
-        padding-left: 30px;
-        position: relative;
-        .iconfont {
-          font-size: 60px;
-          position: absolute;
-          right: 0;
-          top: -35px;
-        }
-      }
-      .wxCode {
-        width: 220px;
-        margin: 38px auto 0 auto;
-        .iconfont {
-          font-size: 30px;
-          color: #cbcbcb;
-          &.right {
-            transform: rotateY(180deg);
-          }
-          &.bottomL {
-            transform: rotateX(180deg);
-          }
-          &.bottomR {
-            transform: rotateX(180deg);
-          }
-        }
-        .pictrue {
-          width: 190px;
-          height: 190px;
-          margin: -15px auto;
-          img {
-            width: 100%;
-            height: 100%;
-          }
-        }
-      }
-      .tip {
-        color: #666;
-        font-size: 16px;
-        margin-top: 20px;
-        text-align: center;
-      }
-    }
     .wrapper {
       width: 430px;
       min-height: 430px;
@@ -667,6 +601,31 @@ export default {
         margin-top: 14px;
         cursor: pointer;
         color: #3e6b4d !important;
+      }
+      .wechatLogin {
+        width: 342px;
+        height: 44px;
+        line-height: 44px;
+        margin: 14px auto 0;
+        border: 1px solid rgba(62, 107, 77, 0.28);
+        border-radius: 8px;
+        color: #3e6b4d;
+        background: rgba(62, 107, 77, 0.05);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        .iconfont {
+          margin-right: 6px;
+          font-size: 17px;
+          color: #3e6b4d;
+        }
+        &:hover {
+          color: #fff;
+          background: #3e6b4d;
+          border-color: #3e6b4d;
+          .iconfont {
+            color: #fff;
+          }
+        }
       }
     }
   }
