@@ -130,7 +130,7 @@ class StoreCategoryDao extends BaseDao
     }
 
     /**
-     * 按照个数获取一级分类下有商品的分类ID
+     * 按照个数获取一级分类下有商品或已配置分类大图的分类ID
      * @param $page
      * @param $limit
      * @return array
@@ -140,8 +140,10 @@ class StoreCategoryDao extends BaseDao
         return $this->getModel()
             ->where('is_show', 1)
             ->where('pid', 0)
-            ->where('id', 'in', function ($query) {
-                $query->name('store_product_cate')->where('status', 1)->group('cate_pid')->field('cate_pid')->select()->toArray();
+            ->where(function ($query) {
+                $query->where('big_pic', '<>', '')->whereOr('id', 'in', function ($query) {
+                    $query->name('store_product_cate')->where('status', 1)->group('cate_pid')->field('cate_pid')->select()->toArray();
+                });
             })
             ->page($page, $limit)
             ->order('sort DESC,id DESC')
@@ -149,7 +151,7 @@ class StoreCategoryDao extends BaseDao
     }
 
     /**
-     * 按照个数获取一级分类下有商品的分类个数
+     * 按照个数获取一级分类下有商品或已配置分类大图的分类个数
      * @param $page
      * @param $limit
      * @return int
@@ -159,8 +161,10 @@ class StoreCategoryDao extends BaseDao
         return $this->getModel()
             ->where('is_show', 1)
             ->where('pid', 0)
-            ->where('id', 'in', function ($query) {
-                $query->name('store_product_cate')->where('status', 1)->group('cate_pid')->field('cate_pid')->select()->toArray();
+            ->where(function ($query) {
+                $query->where('big_pic', '<>', '')->whereOr('id', 'in', function ($query) {
+                    $query->name('store_product_cate')->where('status', 1)->group('cate_pid')->field('cate_pid')->select()->toArray();
+                });
             })
             ->count();
     }
