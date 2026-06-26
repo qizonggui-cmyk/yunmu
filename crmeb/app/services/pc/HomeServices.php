@@ -36,7 +36,11 @@ class HomeServices extends BaseServices
         $list = $category->getCid($page, $limit);
         foreach ($list as $key => &$info) {
             $productList = $product->getSearchList(['cid' => $info['id'], 'star' => 1, 'is_show' => 1, 'is_del' => 0, 'vip_user' => $vip_user], 1, 8, ['id,store_name,image,IFNULL(sales, 0) + IFNULL(ficti, 0) as sales,price,ot_price,presale']);
-            if (!count($productList)) unset($list[$key]);
+            // PC首页分类模块左侧依赖分类大图。已配置分类大图时，即使暂时没有商品，也保留模块展示。
+            if (!count($productList) && empty($info['big_pic'])) {
+                unset($list[$key]);
+                continue;
+            }
             foreach ($productList as &$item) {
                 if (count($item['star'])) {
                     $item['star'] = bcdiv((string)array_sum(array_column($item['star'], 'product_score')), (string)count($item['star']), 1);
